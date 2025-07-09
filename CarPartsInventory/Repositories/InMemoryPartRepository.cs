@@ -22,4 +22,15 @@ public class InMemoryPartRepository : IPartRepository
         _parts.Remove(part);
         return true;
     }
+
+    // Add update functionality
+    public bool Update(Guid id, Part updatedPart)
+    {
+        var part = _parts.FirstOrDefault(p => p.Id == id);
+        if (part == null) return false;
+        part.Name = updatedPart.Name;
+        part.Manufacturer = updatedPart.Manufacturer;
+        part.Quantity = updatedPart.Quantity;
+        return true;
+    }
 }

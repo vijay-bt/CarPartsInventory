@@ -5,14 +5,22 @@ namespace CarPartsInventory.Services;
 
 public class PartService : IPartService
 {
-    private readonly IPartRepository _repo;
-    public PartService(IPartRepository repo) => _repo = repo;
+    private readonly IPartRepository _repository;
+
+    public PartService(IPartRepository repository)
+    {
+        _repository = repository;
+    }
+
+    public IEnumerable<Part> GetAll() => _repository.GetAll();
 
     public IEnumerable<Part> Search(string? name) =>
-        _repo.GetAll().Where(p => string.IsNullOrEmpty(name) ||
-                                  p.Name.Contains(name, StringComparison.OrdinalIgnoreCase));
+        _repository.GetAll().Where(p => string.IsNullOrEmpty(name) ||
+                                        p.Name.Contains(name, StringComparison.OrdinalIgnoreCase));
 
-    public Part Add(Part part) => _repo.Add(part);
+    public Part Add(Part part) => _repository.Add(part);
 
-    public bool Remove(Guid id) => _repo.Delete(id);
+    public bool Delete(Guid id) => _repository.Delete(id);
+
+    public bool Update(Guid id, Part updatedPart) => _repository.Update(id, updatedPart);
 }

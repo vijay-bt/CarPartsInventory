@@ -4,7 +4,9 @@ namespace CarPartsInventory.Services;
 
 public interface IPartService
 {
-    IEnumerable<Part> Search(string? name);
+    IEnumerable<Part> GetAll();
     Part Add(Part part);
-    bool Remove(Guid id);
+    bool Delete(Guid id);
+    bool Update(Guid id, Part updatedPart);
+    IEnumerable<Part> Search(string? name); // Added the missing Search method
 }
